@@ -3,6 +3,8 @@ package com.tanlaplatforms.hrishikeshpatil.employeeapp.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.tanlaplatforms.hrishikeshpatil.employeeapp.entity.Employee;
 import com.tanlaplatforms.hrishikeshpatil.employeeapp.exceptions.EmployeeNotFoundException;
 import com.tanlaplatforms.hrishikeshpatil.employeeapp.repository.EmployeeRepository;
@@ -10,6 +12,7 @@ import com.tanlaplatforms.hrishikeshpatil.employeeapp.repository.EmployeeReposit
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
+@Service
 public class EmployeeService {
 
     private EmployeeRepository employeeRepository;

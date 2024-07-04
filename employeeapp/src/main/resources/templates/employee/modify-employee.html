@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Home Directory</title>
+    <!-- Compressed CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text"><a th:href="${'/'}">Employee Directory</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col items-start w-full py-3 px-6">
+      <form
+        th:action="@{'/modify-employee'}"
+        method="post"
+        th:object="${employee}"
+      >
+        <input type="hidden" th:field="*{id}" />
+        <label>
+          First name
+          <input
+            type="text"
+            class="w-96"
+            aria-describedby="Employee first name"
+            th:field="*{firstName}"
+            name="firstName"
+          />
+          <span
+            th:if="${#fields.hasErrors('firstName')}"
+            th:errors="*{firstName}"
+            class="text-red-600"
+          />
+        </label>
+        <label>
+          Last name
+          <input
+            type="text"
+            class="w-96"
+            aria-describedby="Employee last name"
+            th:field="*{lastName}"
+            name="lastName"
+          />
+          <span
+            th:if="${#fields.hasErrors('lastName')}"
+            th:errors="*{lastName}"
+            class="text-red-600"
+          />
+        </label>
+        <label>
+          Email
+          <input
+            type="email"
+            class="w-96"
+            aria-describedby="Employee email"
+            th:field="*{email}"
+            name="email"
+          />
+          <span
+            th:if="${#fields.hasErrors('email')}"
+            th:errors="*{email}"
+            class="text-red-600"
+          />
+        </label>
+        <button
+          type="button"
+          role="button"
+          class="button"
+          onclick="history.back()"
+        >
+          Back
+        </button>
+        <input type="submit" value="Save" role="button" class="button" />
+      </form>
+    </div>
+    <!-- Compressed JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

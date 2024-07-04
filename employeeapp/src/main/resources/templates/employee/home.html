@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Home Directory</title>
+    <!-- Compressed CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text"><a th:href="${'/'}">Employee Directory</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col items-center w-full p-3">
+      <a
+        th:href="@{'/modify-employee'}"
+        type="button"
+        class="button m-1 self-end"
+      >
+        New employee
+      </a>
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="employee: ${employees}" class="items-center">
+            <td th:text="${employee.firstName}" />
+            <td th:text="${employee.lastName}" />
+            <td th:text="${employee.email}" />
+            <td class="flex flex-row justify-end">
+              <a th:href="${'/modify-employee/' + employee.id}">
+                <button type="button" class="button mb-0 mx-1">Edit</button>
+              </a>
+              <a th:href="${'/delete-employee/' + employee.id}">
+                <button type="button" class="alert button mb-0 mx-1">
+                  Delete
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Compressed JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
