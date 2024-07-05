@@ -32,48 +32,16 @@
         </ul>
       </div>
     </div>
-    <div class="flex flex-col items-center w-full p-3">
-      <a
-        th:href="@{'/modify-employee'}"
+    <div class="flex flex-col items-center w-full h-dvh">
+      <span class="text-lg text-red-600">You are not allowed here!</span>
+      <button
         type="button"
-        class="button m-1 self-end"
-        sec:authorize="hasRole('MANAGER')"
+        role="button"
+        class="button my-3"
+        onclick="history.back()"
       >
-        New employee
-      </a>
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th sec:authorize="hasRole('MANAGER')" />
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="employee: ${employees}" class="items-center">
-            <td th:text="${employee.firstName}" />
-            <td th:text="${employee.lastName}" />
-            <td th:text="${employee.email}" />
-            <td
-              class="flex flex-row justify-end"
-              sec:authorize="hasRole('MANAGER')"
-            >
-              <a th:href="@{'/modify-employee/' + employee.id}">
-                <button type="button" class="button mb-0 mx-1">Edit</button>
-              </a>
-              <a
-                th:href="@{'/delete-employee/' + employee.id}"
-                sec:authorize="hasRole('ADMIN')"
-              >
-                <button type="button" class="alert button mb-0 mx-1">
-                  Delete
-                </button>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        Back
+      </button>
     </div>
     <!-- Compressed JavaScript -->
     <script

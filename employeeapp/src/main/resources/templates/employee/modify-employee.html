@@ -19,7 +19,16 @@
     <div class="top-bar">
       <div class="top-bar-left">
         <ul class="dropdown menu" data-dropdown-menu>
-          <li class="menu-text"><a th:href="${'/'}">Employee Directory</a></li>
+          <li class="menu-text"><a th:href="@{'/'}">Employee Directory</a></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li>
+            <form th:action="@{'/logout'}" method="post">
+              <input type="submit" value="Sign out" />
+            </form>
+          </li>
         </ul>
       </div>
     </div>
