@@ -3,8 +3,8 @@ package com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.entities.Course;
-import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.entities.Instructor;
-import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.service.InstructorService;
+import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.entities.Student;
+import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.service.StudentService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,47 +23,45 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/instructors")
+@RequestMapping("/api/students")
 @AllArgsConstructor
 @Data
 @Accessors(chain = true)
-public class InstructorController {
+public class StudentController {
 
-    private InstructorService instructorService;
+    private StudentService studentService;
 
     @GetMapping("")
-    public List<Instructor> getAllInstructors() {
-        return instructorService.getAllInstructors();
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
 
     @GetMapping("/{id}")
-    public Instructor getInstructorById(@PathVariable Integer id,
+    public Student getStudentById(@PathVariable Integer id,
             @RequestParam(name = "courses", defaultValue = "false") Boolean courses) {
-        return instructorService.getInstructorById(id, courses);
+        return studentService.getStudentById(id, courses);
     }
 
     @GetMapping("/{id}/courses")
-    public List<Course> getCoursesByInstructorId(@PathVariable Integer id) {
-        return instructorService.findCoursesByInstructorId(id);
+    public List<Course> getCoursesByStudentId(@PathVariable Integer id) {
+        return studentService.findCoursesByStudentId(id);
     }
 
     @PostMapping("")
-    public Instructor addNewInstructor(@RequestBody Instructor instructor) {
-        return instructorService.addInstructor(instructor);
+    public Student addNewStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
     }
 
     @PutMapping("/{id}")
-    public Instructor editInstructor(@PathVariable Integer id, @RequestBody Optional<Instructor> maybeInstructor,
-            @RequestParam(name = "detailId") Optional<Integer> maybeDetailId,
+    public Student editStudent(@PathVariable Integer id, @RequestBody Optional<Student> maybeStudent,
             @RequestParam(name = "courseId") Optional<List<Integer>> maybeCourseId,
             @RequestParam(name = "removeCourseId") Optional<List<Integer>> maybeRemoveCourseId) {
-        return instructorService.updateInstructorById(id, maybeInstructor, maybeDetailId, maybeCourseId,
-                maybeRemoveCourseId);
+        return studentService.updateStudentById(id, maybeStudent, maybeCourseId, maybeRemoveCourseId);
     }
 
     @DeleteMapping("/{id}")
-    public Instructor deleteInstructorById(@PathVariable Integer id) {
-        return instructorService.deleteInstructorById(id);
+    public Student deleteStudentById(@PathVariable Integer id) {
+        return studentService.deleteStudentById(id);
     }
 
 }

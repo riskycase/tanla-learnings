@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.entities.InstructorDetail;
-import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.exceptions.InstructorDetailNotFoundException;
+import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.exceptions.EntityNotFoundException;
 import com.tanlaplatforms.hrishikeshpatil.advancedjpaproject.repository.InstructorDetailRepository;
 
 import lombok.AllArgsConstructor;
@@ -21,14 +21,14 @@ public class InstructorDetailService {
 
     private InstructorDetailRepository instructorDetailRepository;
 
-    public List<InstructorDetail> getAllInstructorDetailss() {
+    public List<InstructorDetail> getAllInstructorDetails() {
         return instructorDetailRepository.findAll();
     }
 
     private InstructorDetail checkIfInstructorDetailsExistsAndReturn(Integer id) {
         Optional<InstructorDetail> maybeInstructorDetail = instructorDetailRepository.findById(id);
         if (maybeInstructorDetail.isEmpty()) {
-            throw new InstructorDetailNotFoundException("Instructor detail does not exist with id " + id);
+            throw new EntityNotFoundException("Instructor detail does not exist with id " + id);
         }
         return maybeInstructorDetail.get();
     }
@@ -50,6 +50,13 @@ public class InstructorDetailService {
         InstructorDetail deletedInstructorDetail = checkIfInstructorDetailsExistsAndReturn(id);
         instructorDetailRepository.deleteById(id);
         return deletedInstructorDetail;
+    }
+
+    public InstructorDetail updateInstructorDetailById(Integer id, Optional<InstructorDetail> maybeInstructorDetail) {
+        if (maybeInstructorDetail.isPresent()) {
+            updateInstructorDetailById(id, maybeInstructorDetail.get());
+        }
+        return getInstructorDetailById(id);
     }
 
 }

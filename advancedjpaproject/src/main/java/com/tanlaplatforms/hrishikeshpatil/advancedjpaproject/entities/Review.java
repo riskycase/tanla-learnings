@@ -8,7 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,29 +17,26 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "instructor_detail")
-public class InstructorDetail {
+@Table(name = "review")
+public class Review {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "youtube_channel")
-    private String youtubeChannel;
+    @Column(name = "comment")
+    private String comment;
 
-    @Column(name = "hobby")
-    private String hobby;
-
-    @OneToOne(mappedBy = "instructorDetail", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH })
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
     @JsonIgnore
     @ToString.Exclude
-    private Instructor instructor;
+    private Course course;
 
 }

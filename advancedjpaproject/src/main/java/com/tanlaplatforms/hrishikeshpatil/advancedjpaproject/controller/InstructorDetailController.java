@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class InstructorDetailController {
 
     @GetMapping("")
     public List<InstructorDetail> getAllInstructorDetails() {
-        return instructorDetailService.getAllInstructorDetailss();
+        return instructorDetailService.getAllInstructorDetails();
     }
 
     @GetMapping("/{id}")
@@ -39,13 +40,14 @@ public class InstructorDetailController {
     }
 
     @PostMapping("")
-    public InstructorDetail addNewInstructorDetail(@RequestBody InstructorDetail instructor) {
-        return instructorDetailService.addInstructorDetail(instructor);
+    public InstructorDetail addNewInstructorDetail(@RequestBody InstructorDetail instructorDetail) {
+        return instructorDetailService.addInstructorDetail(instructorDetail);
     }
 
     @PutMapping("/{id}")
-    public InstructorDetail editInstructorDetail(@RequestBody InstructorDetail instructor, @PathVariable Integer id) {
-        return instructorDetailService.updateInstructorDetailById(id, instructor);
+    public InstructorDetail editInstructorDetail(@RequestBody Optional<InstructorDetail> maybeInstructorDetail,
+            @PathVariable Integer id) {
+        return instructorDetailService.updateInstructorDetailById(id, maybeInstructorDetail);
     }
 
     @DeleteMapping("/{id}")

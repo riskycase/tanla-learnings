@@ -9,8 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +22,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "instructor")
-public class Instructor {
+@Table(name = "student")
+public class Student {
 
     @Id
     @Column(name = "id")
@@ -39,26 +39,16 @@ public class Instructor {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-    @JoinColumn(name = "instructor_detail_id")
-    private InstructorDetail instructorDetail;
-
-    @OneToMany(mappedBy = "instructor", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH })
+    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
 
     public void addCourses(List<Course> courses) {
-        courses.stream().forEach((course) -> {
-            this.courses.add(course);
-            course.setInstructor(this);
-        });
+        this.courses.addAll(courses);
     }
 
     public void removeCourses(List<Course> courses) {
-        courses.stream().forEach((course) -> {
-            this.courses.remove(course);
-            course.setInstructor(null);
-        });
+        this.courses.removeAll(courses);
     }
 
 }
